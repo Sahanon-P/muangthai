@@ -1,0 +1,112 @@
+{
+    "metadata": {
+        "title": "Muang Thai Restaurant",
+        "description": "Authentische Thai-Küche in Einsiedeln"
+    },
+    "navbar": {
+        "home": "STARTSEITE",
+        "ourStory": "ÜBER UNS",
+        "menu": "SPEISEKARTE",
+        "reservation": "RESERVATION",
+        "chefGallery": "KÜCHENGALERIE",
+        "contact": "KONTAKT",
+        "location": "STANDORT"
+    },
+    "home": {
+        "welcomeTo": "Willkommen bei",
+        "restaurantName": "Muang Thai Restaurant",
+        "reserveTheTable": "TISCH RESERVIEREN",
+        "reserve": "RESERVIEREN",
+        "phoneCall": "ANRUFEN",
+        "whoAreWe": "Wer sind wir?",
+        "whoAreWeUpper": "WER SIND WIR?",
+        "announcement": "Ankündigung",
+        "whatOurCustomersSay": "WAS UNSERE KUNDEN SAGEN",
+        "testimonials": "KUNDENSTIMMEN",
+        "noReviews": "Noch keine Bewertungen. Teilen Sie als Erster Ihre Erfahrung!",
+        "whatOurCustomersFeel": "WIE SICH UNSERE KUNDEN FÜHLEN",
+        "atmosphere": "ATMOSPHÄRE"
+    },
+    "reservation": {
+        "title": "RESERVATION",
+        "namePlaceholder": "Name",
+        "emailPlaceholder": "E-Mail",
+        "phonePlaceholder": "Telefonnummer",
+        "seatPlaceholder": "Anzahl der Plätze",
+        "messageLabel": "Teilen Sie dem Restaurant etwas mit",
+        "checkInfo": "Bitte überprüfen Sie Ihre Angaben vor dem Absenden",
+        "submit": "Absenden",
+        "submitting": "Wird gesendet...",
+        "successMessage": "Reservation bestätigt! Eine Bestätigungs-E-Mail wurde gesendet.",
+        "errorMessage": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",
+        "validation": {
+            "nameRequired": "Name ist erforderlich",
+            "bookingTimeRequired": "Buchungszeit ist erforderlich",
+            "invalidEmail": "Ungültige E-Mail-Adresse",
+            "phoneRequired": "Telefonnummer ist erforderlich",
+            "seatsRequired": "Bitte Anzahl der Plätze wählen",
+            "messageMaxLength": "Nachricht darf maximal 100 Zeichen lang sein",
+            "agreeRequired": "Sie müssen vor dem Absenden bestätigen"
+        }
+    },
+    "footer": {
+        "tagline": "Original thailändische Spezialitäten",
+        "contactUs": "KONTAKTIEREN SIE UNS",
+        "quickLink": "SCHNELLZUGRIFF",
+        "defaultTagline": "Authentische Thai-Küche mit Liebe und Tradition zubereitet.\nFrische Zutaten, herzliches Lächeln, unvergessliche Aromen.",
+        "links": {
+            "home": "Startseite",
+            "aboutUs": "Über uns",
+            "ourMenu": "Speisekarte",
+            "dineIn": "Im Restaurant",
+            "takeAway": "Zum Mitnehmen",
+            "contactUs": "Kontakt"
+        }
+    },
+    "emails": {
+        "confirmation": {
+            "subject": "Reservationsbestätigung - Muang Thai Restaurant",
+            "restaurantName": "Muang Thai Restaurant",
+            "authenticCuisine": "Authentische Thai-Küche",
+            "confirmed": "Reservation bestätigt!",
+            "greeting": "Liebe(r) {name},",
+            "thankYou": "Vielen Dank für Ihre Reservation. Hier sind Ihre Buchungsdetails:",
+            "dateTime": "Datum & Uhrzeit:",
+            "seats": "Anzahl der Plätze:",
+            "cancelNotice": "Wenn Sie Ihre Reservation stornieren oder ändern möchten, kontaktieren Sie uns unter",
+            "orEmail": "oder per E-Mail an",
+            "address": "Heidenbühl 2, 8840 Einsiedeln",
+            "copyright": "© Muang Thai Restaurant"
+        },
+        "notification": {
+            "subject": "Neue Reservation: {name} - {date}",
+            "title": "Neue Reservation",
+            "subtitle": "Eine neue Reservation wurde vorgenommen",
+            "customerDetails": "Kundendaten",
+            "name": "Name:",
+            "email": "E-Mail:",
+            "phone": "Telefon:",
+            "dateTime": "Datum & Uhrzeit:",
+            "seats": "Plätze:",
+            "message": "Nachricht:",
+            "automatedNotice": "Dies ist eine automatische Benachrichtigung des Reservationssystems."
+        }
+    },
+    "story": {
+        "title": "UNSERE GESCHICHTE",
+        "fallbackTitle": "Von unserem Zuhause zu Ihrem",
+        "aboutOurChef": "Über unseren Küchenchef"
+    },
+    "menu": {
+        "title": "MENÜ",
+        "noMenu": "Derzeit ist kein Menü verfügbar."
+    },
+    "gallery": {
+        "title": "CHEF-GALERIE",
+        "noGallery": "Keine Galeriebilder verfügbar."
+    },
+    "actions": {
+        "invalidFormData": "Ungültige Formulardaten",
+        "emailFailed": "Bestätigungs-E-Mail konnte nicht gesendet werden. Bitte versuchen Sie es erneut."
+    }
+}
