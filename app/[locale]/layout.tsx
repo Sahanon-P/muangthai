@@ -57,8 +57,6 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <head>
-        <head>
-        {/* Google Analytics */}
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=G-SBPQ40JYTV`}
           strategy="afterInteractive"
@@ -73,7 +71,6 @@ export default async function RootLayout({
             });
           `}
         </Script>
-      </head>
       </head>
       <body
         className={`${myFont.className} bg-[#242424] flex flex-col justify-center`}
