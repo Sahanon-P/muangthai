@@ -8,6 +8,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import Script from "next/script";
 
 const myFont = localFont({
   src: [
@@ -55,6 +56,25 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
+      <head>
+        <head>
+        {/* Google Analytics */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=G-SBPQ40JYTV`}
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-SBPQ40JYTV', {
+              page_path: window.location.pathname,
+            });
+          `}
+        </Script>
+      </head>
+      </head>
       <body
         className={`${myFont.className} bg-[#242424] flex flex-col justify-center`}
       >
