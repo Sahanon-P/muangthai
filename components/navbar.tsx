@@ -1,13 +1,25 @@
 "use client";
 import React, { Fragment, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { Switch } from "./ui/switch";
 import { Label } from "./ui/label";
+import { useTranslations, useLocale } from "next-intl";
+import { Link, useRouter, usePathname } from "@/i18n/navigation";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const t = useTranslations("navbar");
+  const locale = useLocale();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const isEnglish = locale === "en";
+
+  function handleLanguageSwitch() {
+    const newLocale = isEnglish ? "de" : "en";
+    router.replace(pathname, { locale: newLocale });
+  }
 
   return (
     <Fragment>
@@ -29,7 +41,12 @@ export default function Navbar() {
           <Label htmlFor="en" className="text-white">
             EN
           </Label>
-          <Switch id="languages" className="bg-[#DAE129]" />
+          <Switch
+            id="languages"
+            className="bg-[#DAE129]"
+            checked={!isEnglish}
+            onCheckedChange={handleLanguageSwitch}
+          />
           <Label htmlFor="de" className="text-white">
             DE
           </Label>
@@ -53,53 +70,53 @@ export default function Navbar() {
               height={80}
             />
             <Link
-              href="#"
+              href="/"
               className="text-xl font-light text-[#DAE129]"
               onClick={() => setOpen(false)}
             >
-              HOME
+              {t("home")}
+            </Link>
+            <Link
+              href="/story"
+              className="text-xl font-light text-[#DAE129]"
+              onClick={() => setOpen(false)}
+            >
+              {t("ourStory")}
+            </Link>
+            <Link
+              href="/menu"
+              className="text-xl font-light text-[#DAE129]"
+              onClick={() => setOpen(false)}
+            >
+              {t("menu")}
+            </Link>
+            <Link
+              href="/reservation"
+              className="text-xl font-light text-[#DAE129]"
+              onClick={() => setOpen(false)}
+            >
+              {t("reservation")}
+            </Link>
+            <Link
+              href="/gallery"
+              className="text-xl font-light text-[#DAE129]"
+              onClick={() => setOpen(false)}
+            >
+              {t("chefGallery")}
             </Link>
             <Link
               href="#"
               className="text-xl font-light text-[#DAE129]"
               onClick={() => setOpen(false)}
             >
-              OUR STORY
+              {t("contact")}
             </Link>
             <Link
               href="#"
               className="text-xl font-light text-[#DAE129]"
               onClick={() => setOpen(false)}
             >
-              MENU
-            </Link>
-            <Link
-              href="#"
-              className="text-xl font-light text-[#DAE129]"
-              onClick={() => setOpen(false)}
-            >
-              RESERVATION
-            </Link>
-            <Link
-              href="#"
-              className="text-xl font-light text-[#DAE129]"
-              onClick={() => setOpen(false)}
-            >
-              CHEF GALLERY
-            </Link>
-            <Link
-              href="#"
-              className="text-xl font-light text-[#DAE129]"
-              onClick={() => setOpen(false)}
-            >
-              CONTACT
-            </Link>
-            <Link
-              href="#"
-              className="text-xl font-light text-[#DAE129]"
-              onClick={() => setOpen(false)}
-            >
-              LOCATION
+              {t("location")}
             </Link>
           </div>
         </div>
@@ -107,7 +124,7 @@ export default function Navbar() {
 
       {/* Desktop Navbar */}
       <nav className="hidden lg:flex lg:justify-center">
-        <div className="w-[1000px] h-[92px] opacity-30 border border-[#DAE129] rounded-[28px] pt-4 px-6 pb-4 gap-7 bg-[#242424] flex justify-between items-center">
+        <div className="w-[1000px] h-[92px] opacity-30 hover:opacity-100 border border-[#DAE129] rounded-[28px] pt-4 px-6 pb-4 gap-7 bg-[#1a1a1a]  flex justify-between items-center">
           <Image
             src={"/branding.jpg"}
             className="rounded-full"
@@ -115,26 +132,29 @@ export default function Navbar() {
             width={60}
             height={60}
           />
-          <Link href="#" className="hover:underline font-light text-[#DAE129]">
-            {"Home".toUpperCase()}
+          <Link href="/" className="hover:underline hover:bg-red-500 hover:p-2 hover:rounded font-light text-[#DAE129]">
+            {t("home")}
           </Link>
-          <Link href="#" className="hover:underline font-light text-[#DAE129]">
-            {"Our Story".toUpperCase()}
+          <Link href="/story" className="hover:underline hover:bg-red-500 hover:p-2 hover:rounded font-light text-[#DAE129]">
+            {t("ourStory")}
           </Link>
-          <Link href="#" className="hover:underline font-light text-[#DAE129]">
-            {"Menu".toUpperCase()}
+          <Link href="/menu" className="hover:underline hover:bg-red-500 hover:p-2 hover:rounded font-light text-[#DAE129]">
+            {t("menu")}
           </Link>
-          <Link href="#" className="hover:underline font-light text-[#DAE129]">
-            {"Reservation".toUpperCase()}
+          <Link
+            href="/reservation"
+            className="hover:underline hover:bg-red-500 hover:p-2 hover:rounded font-light text-[#DAE129]"
+          >
+            {t("reservation")}
           </Link>
-          <Link href="#" className="hover:underline font-light text-[#DAE129]">
-            {"CHEF GALLERY".toUpperCase()}
+          <Link href="/gallery" className="hover:underline hover:bg-red-500 hover:p-2 hover:rounded font-light text-[#DAE129]">
+            {t("chefGallery")}
           </Link>
-          <Link href="#" className="hover:underline font-light text-[#DAE129]">
-            {"Contact".toUpperCase()}
+          <Link href="#" className="hover:underline hover:bg-red-500 hover:p-2 hover:rounded font-light text-[#DAE129]">
+            {t("contact")}
           </Link>
-          <Link href="#" className="hover:underline font-light text-[#DAE129]">
-            {"Location".toUpperCase()}
+          <Link href="#" className="hover:underline hover:bg-red-500 hover:p-2 hover:rounded font-light text-[#DAE129]">
+            {t("location")}
           </Link>
         </div>
       </nav>

@@ -1,0 +1,112 @@
+{
+    "metadata": {
+        "title": "Muang Thai Restaurant",
+        "description": "Authentic Thai Cuisine in Einsiedeln"
+    },
+    "navbar": {
+        "home": "HOME",
+        "ourStory": "OUR STORY",
+        "menu": "MENU",
+        "reservation": "RESERVATION",
+        "chefGallery": "CHEF GALLERY",
+        "contact": "CONTACT",
+        "location": "LOCATION"
+    },
+    "home": {
+        "welcomeTo": "Welcome to",
+        "restaurantName": "Muang Thai Restaurant",
+        "reserveTheTable": "RESERVE THE TABLE",
+        "reserve": "RESERVE",
+        "phoneCall": "PHONE CALL",
+        "whoAreWe": "Who Are We?",
+        "whoAreWeUpper": "WHO ARE WE?",
+        "announcement": "Announcement",
+        "whatOurCustomersSay": "WHAT OUR CUSTOMERS SAY",
+        "testimonials": "TESTIMONIALS",
+        "noReviews": "No reviews yet. Be the first to share your experience!",
+        "whatOurCustomersFeel": "WHAT OUR CUSTOMERS FEEL",
+        "atmosphere": "ATMOSPHERE"
+    },
+    "reservation": {
+        "title": "RESERVATION",
+        "namePlaceholder": "Name",
+        "emailPlaceholder": "Email",
+        "phonePlaceholder": "Phone number",
+        "seatPlaceholder": "Seat Number",
+        "messageLabel": "Tell Anything to Restaurant",
+        "checkInfo": "Please check your information before submit",
+        "submit": "Submit",
+        "submitting": "Submitting...",
+        "successMessage": "Reservation confirmed! A confirmation email has been sent.",
+        "errorMessage": "Something went wrong. Please try again.",
+        "validation": {
+            "nameRequired": "Name is required",
+            "bookingTimeRequired": "Booking time is required",
+            "invalidEmail": "Invalid email address",
+            "phoneRequired": "Phone number is required",
+            "seatsRequired": "Please select number of seats",
+            "messageMaxLength": "Message must be 100 characters or less",
+            "agreeRequired": "You must confirm before submitting"
+        }
+    },
+    "footer": {
+        "tagline": "Original Thai Specialties",
+        "contactUs": "CONTACT US",
+        "quickLink": "QUICK LINK",
+        "defaultTagline": "Authentic Thai cuisine made with love and tradition.\nFresh ingredients, warm smiles, unforgettable flavors.",
+        "links": {
+            "home": "Home",
+            "aboutUs": "About us",
+            "ourMenu": "Our menu",
+            "dineIn": "Dine-in",
+            "takeAway": "Take away",
+            "contactUs": "Contact us"
+        }
+    },
+    "emails": {
+        "confirmation": {
+            "subject": "Reservation Confirmation - Muang Thai Restaurant",
+            "restaurantName": "Muang Thai Restaurant",
+            "authenticCuisine": "Authentic Thai Cuisine",
+            "confirmed": "Reservation Confirmed!",
+            "greeting": "Dear {name},",
+            "thankYou": "Thank you for your reservation. Here are your booking details:",
+            "dateTime": "Date & Time:",
+            "seats": "Number of Seats:",
+            "cancelNotice": "If you need to cancel or modify your reservation, please contact us at",
+            "orEmail": "or email us at",
+            "address": "Heidenbühl 2, 8840 Einsiedeln",
+            "copyright": "© Muang Thai Restaurant"
+        },
+        "notification": {
+            "subject": "New Reservation: {name} - {date}",
+            "title": "New Reservation",
+            "subtitle": "A new reservation has been made",
+            "customerDetails": "Customer Details",
+            "name": "Name:",
+            "email": "Email:",
+            "phone": "Phone:",
+            "dateTime": "Date & Time:",
+            "seats": "Seats:",
+            "message": "Message:",
+            "automatedNotice": "This is an automated notification from the reservation system."
+        }
+    },
+    "story": {
+        "title": "OUR STORY",
+        "fallbackTitle": "From Our Home to Yours",
+        "aboutOurChef": "About Our Chef"
+    },
+    "menu": {
+        "title": "MENU",
+        "noMenu": "No menu available at the moment."
+    },
+    "gallery": {
+        "title": "CHIEF GALLERY",
+        "noGallery": "No gallery images available."
+    },
+    "actions": {
+        "invalidFormData": "Invalid form data",
+        "emailFailed": "Failed to send confirmation email. Please try again."
+    }
+}
