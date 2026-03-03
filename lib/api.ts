@@ -304,7 +304,7 @@ export async function getMenu(locale?: string) {
     if (res.items.length === 0) return [];
     return res.items.map((item) => ({
       title: item.fields.title as string,
-      imageUrl: getImageUrl(item.fields.image as unknown as Asset),
+      fileUrl: getImageUrl(item.fields.image as unknown as Asset),
     }));
   } catch (error) {
     console.error("Failed to fetch menu:", error);
