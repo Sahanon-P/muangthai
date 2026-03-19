@@ -26,7 +26,13 @@ export const pageview = (url: string) => {
   }
 };
 
-export const event = ({ action, params }: { action: string; params?: Record<string, any> }) => {
+export const event = ({
+  action,
+  params,
+}: {
+  action: string;
+  params?: Record<string, any>;
+}) => {
   if (!GA_ID || typeof window === "undefined") return;
   try {
     window.gtag?.("event", action, params);

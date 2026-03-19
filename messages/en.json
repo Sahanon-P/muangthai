@@ -65,15 +65,15 @@
     },
     "emails": {
         "confirmation": {
-            "subject": "Reservation Confirmation - Muang Thai Restaurant",
+            "subject": "Booking Received - Muang Thai Restaurant",
             "restaurantName": "Muang Thai Restaurant",
             "authenticCuisine": "Authentic Thai Cuisine",
-            "confirmed": "Reservation Confirmed!",
+            "confirmed": "We Received Your Booking!",
             "greeting": "Dear {name},",
-            "thankYou": "Thank you for your reservation. Here are your booking details:",
+            "thankYou": "Thank you for choosing Muang Thai Restaurant. We have received your booking request and will call you back to confirm your reservation. Here are the details you submitted:",
             "dateTime": "Date & Time:",
             "seats": "Number of Seats:",
-            "cancelNotice": "If you need to cancel or modify your reservation, please contact us at",
+            "cancelNotice": "If you have any questions in the meantime, feel free to reach us at",
             "orEmail": "or email us at",
             "address": "Heidenbühl 2, 8840 Einsiedeln",
             "copyright": "© Muang Thai Restaurant"
@@ -104,6 +104,16 @@
     "gallery": {
         "title": "CHIEF GALLERY",
         "noGallery": "No gallery images available."
+    },
+    "contact": {
+        "title": "CONTACT",
+        "getInTouch": "GET IN TOUCH",
+        "phone": "Phone",
+        "email": "Email",
+        "address": "Address",
+        "findUs": "Find Us",
+        "viewOnMaps": "View on Google Maps",
+        "mapUnavailable": "Map unavailable"
     },
     "actions": {
         "invalidFormData": "Invalid form data",

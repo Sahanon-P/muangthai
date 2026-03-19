@@ -1,5 +1,5 @@
 "use client";
-import React, { Fragment, useState } from "react";
+import { Fragment, useState } from "react";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { Switch } from "./ui/switch";
@@ -105,18 +105,11 @@ export default function Navbar() {
               {t("chefGallery")}
             </Link>
             <Link
-              href="#"
+              href="/contact"
               className="text-xl font-light text-[#DAE129]"
               onClick={() => setOpen(false)}
             >
               {t("contact")}
-            </Link>
-            <Link
-              href="#"
-              className="text-xl font-light text-[#DAE129]"
-              onClick={() => setOpen(false)}
-            >
-              {t("location")}
             </Link>
           </div>
         </div>
@@ -150,11 +143,8 @@ export default function Navbar() {
           <Link href="/gallery" className="hover:underline hover:bg-red-500 hover:p-2 hover:rounded font-light text-[#DAE129]">
             {t("chefGallery")}
           </Link>
-          <Link href="#" className="hover:underline hover:bg-red-500 hover:p-2 hover:rounded font-light text-[#DAE129]">
+          <Link href="/contact" className="hover:underline hover:bg-red-500 hover:p-2 hover:rounded font-light text-[#DAE129]">
             {t("contact")}
-          </Link>
-          <Link href="#" className="hover:underline hover:bg-red-500 hover:p-2 hover:rounded font-light text-[#DAE129]">
-            {t("location")}
           </Link>
         </div>
       </nav>

@@ -33,7 +33,8 @@ const myFont = localFont({
 
 export const metadata: Metadata = {
   title: "Muang Thai Restaurant",
-  description: "Authentic Thai cuisine in Einsiedeln. Enjoy traditional dishes, cozy atmosphere, and warm hospitality at Muang Thai Restaurant. Dine-in, take away, and reservations available.",
+  description:
+    "Authentic Thai cuisine in Einsiedeln. Enjoy traditional dishes, cozy atmosphere, and warm hospitality at Muang Thai Restaurant. Dine-in, take away, and reservations available.",
 };
 
 export default async function RootLayout({

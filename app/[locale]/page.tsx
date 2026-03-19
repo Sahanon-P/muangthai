@@ -14,7 +14,7 @@ import Image from "next/image";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import {
   getShowcases,
-  getReviews,
+  getGoogleReviews,
   getAnnouncements,
   getAtmosphereImages,
   getAtmosphereText,
@@ -40,7 +40,7 @@ export default async function Home({
     t,
   ] = await Promise.all([
     getShowcases(locale),
-    getReviews(locale),
+    getGoogleReviews(),
     getAnnouncements(locale),
     getAtmosphereImages(locale),
     getAtmosphereText(locale),
@@ -230,23 +230,14 @@ export default async function Home({
                       className="space-y-5 mt-10 flex flex-col items-center"
                     >
                       <Avatar className="w-32 h-32">
-                        <AvatarImage
-                          src={
-                            review.image || "https://github.com/evilrabbit.png"
-                          }
-                          alt={review.name}
-                        />
+                        <AvatarImage src={review.image} alt={review.name} />
                         <AvatarFallback>
                           {review.name.slice(0, 2).toUpperCase()}
                         </AvatarFallback>
                       </Avatar>
                       <p className="text-xl font-bold">{review.name}</p>
                       <div className="text-2xl font-light italic">
-                        {typeof review.content === "string" ? (
-                          <p>{review.content}</p>
-                        ) : (
-                          documentToReactComponents(review.content)
-                        )}
+                        <p>{review.content}</p>
                       </div>
                     </CarouselItem>
                   ))}

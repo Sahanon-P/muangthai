@@ -1,5 +1,4 @@
 import type { EntryFieldTypes, Asset } from "contentful";
-import type { Document } from "@contentful/rich-text-types";
 
 // Content type: showcase
 export interface ShowcaseSkeleton {

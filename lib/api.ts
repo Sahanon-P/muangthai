@@ -6,7 +6,6 @@ import type {
   AtmosphereImageSkeleton,
   AboutSectionSkeleton,
   ContactInfoSkeleton,
-  QuickLinkSkeleton,
   AtmosphereTextSkeleton,
   StorySkeleton,
   ChefStorySkeleton,
@@ -308,6 +307,46 @@ export async function getMenu(locale?: string) {
     }));
   } catch (error) {
     console.error("Failed to fetch menu:", error);
+    return [];
+  }
+}
+
+export async function getGoogleReviews(): Promise<
+  { name: string; image: string; content: string }[]
+> {
+  const placeId = process.env.PLACE_ID;
+  const apiKey = process.env.GOOGLE_PLACES_API_KEY;
+
+  if (!placeId || !apiKey) return [];
+
+  try {
+    const res = await fetch(
+      `https://places.googleapis.com/v1/places/${placeId}`,
+      {
+        headers: {
+          "X-Goog-Api-Key": apiKey,
+          "X-Goog-FieldMask": "reviews",
+        },
+        next: { revalidate: 86400 },
+      }
+    );
+    const data = await res.json();
+
+    return (data.reviews ?? [])
+      .filter((r: { rating: number }) => r.rating === 5)
+      .slice(0, 5)
+      .map(
+        (r: {
+          authorAttribution: { displayName: string; photoUri: string };
+          text: { text: string };
+        }) => ({
+          name: r.authorAttribution.displayName,
+          image: r.authorAttribution.photoUri,
+          content: r.text.text,
+        })
+      );
+  } catch (error) {
+    console.error("Failed to fetch Google reviews:", error);
     return [];
   }
 }
