@@ -1,7 +1,12 @@
 "use client";
 
-import { useState } from "react";
-import { X, Maximize2 } from "lucide-react";
+import { useState, useCallback } from "react";
+import { Document, Page, pdfjs } from "react-pdf";
+import "react-pdf/dist/Page/AnnotationLayer.css";
+import "react-pdf/dist/Page/TextLayer.css";
+import { ChevronLeft, ChevronRight, Maximize2, Minimize2 } from "lucide-react";
+
+pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.mjs";
 
 interface PdfViewerProps {
   src: string;
@@ -9,62 +14,123 @@ interface PdfViewerProps {
   className?: string;
 }
 
-export default function PdfViewer({ src, title, className }: PdfViewerProps) {
-  const [fullscreen, setFullscreen] = useState(false);
-
+function PdfDocument({
+  src,
+  width,
+  pageNumber,
+  onLoadSuccess,
+}: {
+  src: string;
+  width: number | undefined;
+  pageNumber: number;
+  onLoadSuccess: (numPages: number) => void;
+}) {
   return (
-    <>
-      {/* Inline embedded viewer */}
-      <div
-        className={
-          className ??
-          "relative w-full max-w-4xl mx-auto border-4 border-[#DAE129] rounded-lg overflow-hidden"
-        }
+    <Document
+      file={src}
+      onLoadSuccess={({ numPages }) => onLoadSuccess(numPages)}
+      loading={
+        <div className="flex items-center justify-center h-64 text-gray-400 text-sm">
+          Loading...
+        </div>
+      }
+      error={
+        <div className="flex items-center justify-center h-64 text-red-400 text-sm">
+          Failed to load PDF.
+        </div>
+      }
+    >
+      <Page
+        pageNumber={pageNumber}
+        width={width}
+        renderTextLayer={false}
+        renderAnnotationLayer={false}
+      />
+    </Document>
+  );
+}
+
+export default function PdfViewer({ src, className }: PdfViewerProps) {
+  const [numPages, setNumPages] = useState(0);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [fullscreen, setFullscreen] = useState(false);
+  const [containerWidth, setContainerWidth] = useState<number>();
+
+  const containerRef = useCallback((node: HTMLDivElement | null) => {
+    if (node) setContainerWidth(node.clientWidth);
+  }, []);
+
+  function prev() {
+    setPageNumber((p) => Math.max(1, p - 1));
+  }
+
+  function next() {
+    setPageNumber((p) => Math.min(numPages, p + 1));
+  }
+
+  const controls = (
+    <div className="flex items-center justify-between gap-4 px-4 py-2 bg-black/80 text-white text-sm">
+      <button
+        onClick={prev}
+        disabled={pageNumber <= 1}
+        className="disabled:opacity-30 hover:text-[#DAE129] transition-colors"
+        aria-label="Previous page"
       >
-        <div className="relative w-full h-[400px] md:h-[600px]">
-          <iframe
+        <ChevronLeft size={20} />
+      </button>
+      <span>
+        {pageNumber} / {numPages || "-"}
+      </span>
+      <button
+        onClick={next}
+        disabled={pageNumber >= numPages}
+        className="disabled:opacity-30 hover:text-[#DAE129] transition-colors"
+        aria-label="Next page"
+      >
+        <ChevronRight size={20} />
+      </button>
+      <button
+        onClick={() => setFullscreen((f) => !f)}
+        className="ml-auto hover:text-[#DAE129] transition-colors"
+        aria-label={fullscreen ? "Exit fullscreen" : "Fullscreen"}
+      >
+        {fullscreen ? <Minimize2 size={20} /> : <Maximize2 size={20} />}
+      </button>
+    </div>
+  );
+
+  if (fullscreen) {
+    return (
+      <div className="fixed inset-0 z-50 flex flex-col bg-black">
+        {controls}
+        <div className="flex-1 overflow-auto flex justify-center items-start py-4">
+          <PdfDocument
             src={src}
-            title={title}
-            className="w-full h-full"
-            style={{ border: "none" }}
+            width={Math.min(window.innerWidth - 32, 900)}
+            pageNumber={pageNumber}
+            onLoadSuccess={setNumPages}
           />
         </div>
-
-        <button
-          onClick={() => setFullscreen(true)}
-          className="absolute top-3 right-3 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full transition-colors"
-          aria-label="View fullscreen"
-        >
-          <Maximize2 size={20} />
-        </button>
       </div>
+    );
+  }
 
-      {/* Fullscreen overlay */}
-      {fullscreen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
-          onClick={() => setFullscreen(false)}
-        >
-          <button
-            onClick={() => setFullscreen(false)}
-            className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors z-50"
-            aria-label="Close fullscreen"
-          >
-            <X size={32} />
-          </button>
-          <div
-            className="w-[90vw] h-[90vh]"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <iframe
-              src={src}
-              title={title}
-              className="w-full h-full rounded-lg"
-              style={{ border: "none" }}
-            />
-          </div>
-        </div>
-      )}
-    </>
+  return (
+    <div
+      className={
+        className ??
+        "w-full max-w-4xl mx-auto border-4 border-[#DAE129] rounded-lg overflow-hidden"
+      }
+    >
+      <div ref={containerRef} className="bg-white">
+        <PdfDocument
+          src={src}
+          width={containerWidth}
+          pageNumber={pageNumber}
+          onLoadSuccess={setNumPages}
+        />
+      </div>
+      {controls}
+    </div>
   );
 }

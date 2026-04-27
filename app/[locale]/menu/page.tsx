@@ -1,7 +1,20 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Menu",
+  description:
+    "Explore the Muang Thai Restaurant menu - take-away and dine-in options featuring authentic Thai dishes made with fresh ingredients.",
+  openGraph: {
+    title: "Menu | Muang Thai Restaurant",
+    description:
+      "Explore our take-away and dine-in menus featuring authentic Thai dishes made with fresh ingredients.",
+  },
+};
+
 import { getMenu } from "@/lib/api";
 import { getTranslations } from "next-intl/server";
 import { Separator } from "@/components/ui/separator";
-import PdfViewer from "@/components/pdf-viewer";
+import PdfViewer from "@/components/pdf-viewer-wrapper";
 
 export const revalidate = 60;
 

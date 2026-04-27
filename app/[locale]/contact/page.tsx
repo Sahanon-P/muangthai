@@ -1,3 +1,16 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact",
+  description:
+    "Contact Muang Thai Restaurant in Einsiedeln. Find us at Heidenbühl 2, 8840 Einsiedeln. Call us at 055 / 5 35 73 30 or send us an email.",
+  openGraph: {
+    title: "Contact | Muang Thai Restaurant",
+    description:
+      "Find us at Heidenbühl 2, 8840 Einsiedeln. Call 055 / 5 35 73 30 or send us an email.",
+  },
+};
+
 import { getContactInfo } from "@/lib/api";
 import { getTranslations } from "next-intl/server";
 import { Mail, MapPin, Phone, ExternalLink } from "lucide-react";
