@@ -1,8 +1,7 @@
-import Image from "next/image";
 import { getMenu } from "@/lib/api";
 import { getTranslations } from "next-intl/server";
 import { Separator } from "@/components/ui/separator";
-import ImageViewer from "@/components/image-viewer";
+import PdfViewer from "@/components/pdf-viewer";
 
 export const revalidate = 60;
 
@@ -32,27 +31,16 @@ export default async function MenuPage({
         {/* Menu Items */}
         {menuItems.length > 0 ? (
           menuItems.map((item, index) => (
-            <section key={index} className="flex flex-col items-center justify-center gap-6">
+            <section
+              key={index}
+              className="flex flex-col items-center justify-center gap-6"
+            >
               <h2 className="text-xl md:text-2xl font-bold text-[#DAE129]">
                 {item.title}
               </h2>
 
-              {item.imageUrl && (
-                <ImageViewer src={item.imageUrl} alt={item.title}>
-                  <div
-                    className={`border-4 border-[#DAE129]
-                    rounded-lg overflow-hidden max-w-4xl w-full`}
-                  >
-                    <div className="relative w-full h-[300px] md:h-[500px]">
-                      <Image
-                        src={item.imageUrl}
-                        alt={item.title}
-                        fill
-                        className="object-contain bg-white"
-                      />
-                    </div>
-                  </div>
-                </ImageViewer>
+              {item.fileUrl && (
+                <PdfViewer src={item.fileUrl} title={item.title} />
               )}
 
               <Separator className="bg-gray-600 h-[1px] w-full max-w-4xl" />

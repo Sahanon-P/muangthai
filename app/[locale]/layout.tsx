@@ -9,6 +9,7 @@ import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import Script from "next/script";
+import GAClient from "@/components/ga-client";
 
 const myFont = localFont({
   src: [
@@ -32,7 +33,8 @@ const myFont = localFont({
 
 export const metadata: Metadata = {
   title: "Muang Thai Restaurant",
-  description: "Authentic Thai cuisine in Einsiedeln. Enjoy traditional dishes, cozy atmosphere, and warm hospitality at Muang Thai Restaurant. Dine-in, take away, and reservations available.",
+  description:
+    "Authentic Thai cuisine in Einsiedeln. Enjoy traditional dishes, cozy atmosphere, and warm hospitality at Muang Thai Restaurant. Dine-in, take away, and reservations available.",
 };
 
 export default async function RootLayout({
@@ -54,29 +56,34 @@ export default async function RootLayout({
     getMessages(),
   ]);
 
+  const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+
   return (
     <html lang={locale}>
       <head>
-        {/* Google Analytics */}
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=G-SBPQ40JYTV`}
-          strategy="afterInteractive"
-        />
-        <Script id="gtag-init" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-SBPQ40JYTV', {
-              page_path: window.location.pathname,
-            });
-          `}
-        </Script>
+        {GA_ID ? (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="gtag-init" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);} 
+                gtag('js', new Date());
+                gtag('config', '${GA_ID}', { page_path: window.location.pathname });
+              `}
+            </Script>
+          </>
+        ) : null}
       </head>
       <body
         className={`${myFont.className} bg-[#242424] flex flex-col justify-center`}
       >
         <NextIntlClientProvider messages={messages}>
+          {/* Client-side tracker to record pageviews on route change */}
+          <GAClient />
           <div className="bg-[url('/cover.svg')] bg-[length:100vw_auto] bg-top bg-no-repeat min-h-screen w-full space-y-7">
             <Navbar />
             <div> {children}</div>

@@ -14,7 +14,7 @@ import Image from "next/image";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import {
   getShowcases,
-  getReviews,
+  getGoogleReviews,
   getAnnouncements,
   getAtmosphereImages,
   getAtmosphereText,
@@ -41,7 +41,7 @@ export default async function Home({
     t,
   ] = await Promise.all([
     getShowcases(locale),
-    getReviews(locale),
+    getGoogleReviews(),
     getAnnouncements(locale),
     getAtmosphereImages(locale),
     getAtmosphereText(locale),
@@ -238,24 +238,15 @@ export default async function Home({
                       key={index}
                       className="space-y-5 mt-10 flex flex-col items-center px-4"
                     >
-                      <Avatar className="w-24 h-24 md:w-32 md:h-32 shrink-0">
-                        <AvatarImage
-                          src={
-                            review.image || "https://github.com/evilrabbit.png"
-                          }
-                          alt={review.name}
-                        />
+                      <Avatar className="w-32 h-32">
+                        <AvatarImage src={review.image} alt={review.name} />
                         <AvatarFallback>
                           {review.name.slice(0, 2).toUpperCase()}
                         </AvatarFallback>
                       </Avatar>
-                      <p className="text-lg md:text-xl font-bold">{review.name}</p>
-                      <div className="text-base md:text-2xl font-light italic w-full break-words">
-                        {typeof review.content === "string" ? (
-                          <p>{review.content}</p>
-                        ) : (
-                          documentToReactComponents(review.content)
-                        )}
+                      <p className="text-xl font-bold">{review.name}</p>
+                      <div className="text-2xl font-light italic">
+                        <p>{review.content}</p>
                       </div>
                     </CarouselItem>
                   ))}
