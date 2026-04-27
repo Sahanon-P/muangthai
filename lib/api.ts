@@ -122,11 +122,11 @@ export const defaultContactInfo = {
 
 export const defaultQuickLinks = [
   { label: "Home", href: "/" },
-  { label: "About us", href: "#" },
-  { label: "Our menu", href: "#" },
-  { label: "Dine-in", href: "#" },
-  { label: "Take away", href: "#" },
-  { label: "Contact us", href: "#" },
+  { label: "About us", href: "/story" },
+  { label: "Our menu", href: "/menu" },
+  { label: "Reservation", href: "/reservation" },
+  { label: "Chef Gallery", href: "/gallery" },
+  { label: "Contact us", href: "/contact" },
 ];
 
 // ── Fetchers with error handling ───────────────────────────────────

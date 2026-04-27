@@ -31,10 +31,47 @@ const myFont = localFont({
   ],
 });
 
+const SITE_URL = "https://muangthairestaurant.com";
+
 export const metadata: Metadata = {
-  title: "Muang Thai Restaurant",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Muang Thai Restaurant",
+    template: "%s | Muang Thai Restaurant",
+  },
   description:
-    "Authentic Thai cuisine in Einsiedeln. Enjoy traditional dishes, cozy atmosphere, and warm hospitality at Muang Thai Restaurant. Dine-in, take away, and reservations available.",
+    "Authentic Thai cuisine in Einsiedeln. Traditional dishes, cozy atmosphere, and warm hospitality. Dine-in, take away, and reservations available.",
+  keywords: [
+    "Thai restaurant",
+    "Einsiedeln",
+    "Thai food",
+    "Thai cuisine",
+    "Muang Thai",
+    "take away",
+    "reservation",
+  ],
+  openGraph: {
+    type: "website",
+    siteName: "Muang Thai Restaurant",
+    title: "Muang Thai Restaurant",
+    description:
+      "Authentic Thai cuisine in Einsiedeln. Traditional dishes, cozy atmosphere, and warm hospitality.",
+    url: SITE_URL,
+    images: [{ url: "/branding.jpg", width: 400, height: 400, alt: "Muang Thai Restaurant" }],
+  },
+  twitter: {
+    card: "summary",
+    title: "Muang Thai Restaurant",
+    description: "Authentic Thai cuisine in Einsiedeln.",
+    images: ["/branding.jpg"],
+  },
+  alternates: {
+    canonical: SITE_URL,
+    languages: {
+      en: `${SITE_URL}/en`,
+      de: `${SITE_URL}/de`,
+    },
+  },
 };
 
 export default async function RootLayout({
@@ -61,6 +98,37 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Restaurant",
+              name: "Muang Thai Restaurant",
+              description: "Authentic Thai cuisine in Einsiedeln.",
+              url: SITE_URL,
+              telephone: "+41555357330",
+              email: "info@muangthairestaurant.com",
+              image: `${SITE_URL}/branding.jpg`,
+              servesCuisine: "Thai",
+              priceRange: "$$",
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "Heidenbühl 2",
+                addressLocality: "Einsiedeln",
+                postalCode: "8840",
+                addressCountry: "CH",
+              },
+              geo: {
+                "@type": "GeoCoordinates",
+                latitude: 47.1268,
+                longitude: 8.7465,
+              },
+              hasMap: "https://maps.google.com/?cid=ChIJm2deHVuzmkcRx0dhxhYka9w",
+              sameAs: [],
+            }),
+          }}
+        />
         {GA_ID ? (
           <>
             <Script
@@ -79,6 +147,7 @@ export default async function RootLayout({
         ) : null}
       </head>
       <body
+        suppressHydrationWarning
         className={`${myFont.className} bg-[#242424] flex flex-col justify-center`}
       >
         <NextIntlClientProvider messages={messages}>

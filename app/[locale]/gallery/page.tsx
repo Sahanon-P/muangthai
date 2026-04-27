@@ -1,4 +1,16 @@
+import type { Metadata } from "next";
 import Image from "next/image";
+
+export const metadata: Metadata = {
+  title: "Chef Gallery",
+  description:
+    "Browse the Muang Thai Restaurant chef gallery - a showcase of our culinary artistry and the passion behind every dish.",
+  openGraph: {
+    title: "Chef Gallery | Muang Thai Restaurant",
+    description:
+      "A showcase of our culinary artistry and the passion behind every dish.",
+  },
+};
 import { getGallery } from "@/lib/api";
 import { getTranslations } from "next-intl/server";
 import ImageViewer from "@/components/image-viewer";

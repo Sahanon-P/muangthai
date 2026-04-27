@@ -1,4 +1,16 @@
+import type { Metadata } from "next";
 import Image from "next/image";
+
+export const metadata: Metadata = {
+  title: "Our Story",
+  description:
+    "Discover the story behind Muang Thai Restaurant - authentic Thai flavors brought from Thailand to Einsiedeln with passion and tradition.",
+  openGraph: {
+    title: "Our Story | Muang Thai Restaurant",
+    description:
+      "Discover the story behind Muang Thai Restaurant - authentic Thai flavors brought from Thailand to Einsiedeln with passion and tradition.",
+  },
+};
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { getStory, getChefStory } from "@/lib/api";
 import { getTranslations } from "next-intl/server";
