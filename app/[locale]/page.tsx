@@ -21,6 +21,7 @@ import {
   getAboutSection,
 } from "@/lib/api";
 import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 
 export const revalidate = 60;
 
@@ -50,7 +51,7 @@ export default async function Home({
   return (
     <div>
       <main className="flex flex-col space-y-10">
-        <div className="space-y-5">
+        <div className="space-y-5 pt-6 md:pt-0">
           <h2 className="text-white text-center font-light">
             {t("welcomeTo")}
           </h2>
@@ -141,14 +142,18 @@ export default async function Home({
           </div>
         </div>
         <div className="hidden md:flex items-center justify-evenly w-full px-4">
-          <Button className="flex items-center gap-3 border-2 border-[#DAE129] text-[#DAE129] rounded-full px-6 py-3 text-sm md:text-base font-semibold hover:bg-[#DAE129]/10 transition-colors">
-            <CalendarCheck className="w-5 h-5" />
-            {t("reserveTheTable")}
-          </Button>
-          <Button className="flex items-center gap-3 bg-gradient-to-r from-red-400 to-yellow-300 text-black rounded-full px-6 py-3 text-sm md:text-base font-semibold hover:opacity-90 transition-opacity">
-            <Phone className="w-5 h-5" />
-            055 / 5 35 73 30
-          </Button>
+          <Link href="/reservation">
+            <Button className="flex items-center gap-3 border-2 border-[#DAE129] text-[#DAE129] rounded-full px-6 py-3 text-sm md:text-base font-semibold hover:bg-[#DAE129]/10 transition-colors">
+              <CalendarCheck className="w-5 h-5" />
+              {t("reserveTheTable")}
+            </Button>
+          </Link>
+          <a href="tel:0555357330">
+            <Button className="flex items-center gap-3 bg-gradient-to-r from-red-400 to-yellow-300 text-black rounded-full px-6 py-3 text-sm md:text-base font-semibold hover:opacity-90 transition-opacity">
+              <Phone className="w-5 h-5" />
+              055 / 5 35 73 30
+            </Button>
+          </a>
         </div>
         {/* Mobile: Who Are We */}
         <section className="md:hidden py-10 px-6">
@@ -159,17 +164,21 @@ export default async function Home({
             </div>
             <div className="flex items-center justify-around w-full pt-4">
               <div className="flex flex-col items-center gap-3">
-                <Button className="w-20 h-20 p-0 rounded-full border-2 border-[#DAE129] text-[#DAE129] bg-transparent hover:bg-[#DAE129]/10 transition-colors">
-                  <CalendarCheck size={40} />
-                </Button>
+                <Link href="/reservation">
+                  <Button className="w-20 h-20 p-0 rounded-full border-2 border-[#DAE129] text-[#DAE129] bg-transparent hover:bg-[#DAE129]/10 transition-colors">
+                    <CalendarCheck size={40} />
+                  </Button>
+                </Link>
                 <p className="text-[#DAE129] text-base font-light">
                   {t("reserve")}
                 </p>
               </div>
               <div className="flex flex-col items-center gap-3">
-                <Button className="w-20 h-20 p-0 rounded-full border-2 border-[#DAE129] text-[#DAE129] bg-transparent hover:bg-[#DAE129]/10 transition-colors">
-                  <Phone size={40} />
-                </Button>
+                <a href="tel:0555357330">
+                  <Button className="w-20 h-20 p-0 rounded-full border-2 border-[#DAE129] text-[#DAE129] bg-transparent hover:bg-[#DAE129]/10 transition-colors">
+                    <Phone size={40} />
+                  </Button>
+                </a>
                 <p className="text-[#DAE129] text-base font-light">
                   {t("phoneCall")}
                 </p>
@@ -214,20 +223,20 @@ export default async function Home({
             ))}
           </div>
         </section>
-        <section className="p-20 text-center w-auto bg-white">
+        <section className="px-6 py-12 md:p-20 text-center w-auto bg-white">
           <h2 className="font-light">{t("whatOurCustomersSay")}</h2>
           <div className="flex flex-col justify-center items-center">
             <div className="inline-block space-y-3">
-              <h1 className="text-6xl">{t("testimonials")}</h1>
+              <h1 className="text-4xl md:text-6xl">{t("testimonials")}</h1>
               <Separator className="bg-gradient-to-r from-red-400 to-yellow-300 h-3 w-full rounded-full" />
             </div>
             {reviews.length > 0 ? (
-              <Carousel>
+              <Carousel className="w-full max-w-lg">
                 <CarouselContent>
                   {reviews.map((review, index) => (
                     <CarouselItem
                       key={index}
-                      className="space-y-5 mt-10 flex flex-col items-center"
+                      className="space-y-5 mt-10 flex flex-col items-center px-4"
                     >
                       <Avatar className="w-32 h-32">
                         <AvatarImage src={review.image} alt={review.name} />
