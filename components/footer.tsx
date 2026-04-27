@@ -66,18 +66,18 @@ export default async function Footer({ contactInfo, quickLinks }: FooterProps) {
         <div className="flex flex-col items-center space-y-6">
           <h3 className="text-lg font-bold tracking-wide">{t("contactUs")}</h3>
           <div className="flex flex-col space-y-4 text-sm font-light text-gray-300">
-            <div className="flex items-center space-x-3">
+            <a href={`tel:${contact.phone.replace(/\s/g, "")}`} className="flex items-center space-x-3 hover:text-[#DAE129] transition-colors">
               <Phone size={18} className="text-gray-400" />
               <span>{contact.phone}</span>
-            </div>
+            </a>
             <div className="flex items-center space-x-3">
               <MapPin size={18} className="text-gray-400" />
               <span>{contact.address}</span>
             </div>
-            <div className="flex items-center space-x-3">
+            <a href={`mailto:${contact.email}`} className="flex items-center space-x-3 hover:text-[#DAE129] transition-colors">
               <Mail size={18} className="text-gray-400" />
               <span>{contact.email}</span>
-            </div>
+            </a>
           </div>
         </div>
 
