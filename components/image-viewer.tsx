@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 
 interface ImageViewerProps {
@@ -11,6 +11,11 @@ interface ImageViewerProps {
   className?: string;
 }
 
+function isLineBrowser(): boolean {
+  if (typeof navigator === "undefined") return false;
+  return /Line\//i.test(navigator.userAgent);
+}
+
 export default function ImageViewer({
   src,
   alt,
@@ -18,11 +23,24 @@ export default function ImageViewer({
   className,
 }: ImageViewerProps) {
   const [open, setOpen] = useState(false);
+  const [isLine, setIsLine] = useState(false);
+
+  useEffect(() => {
+    setIsLine(isLineBrowser());
+  }, []);
+
+  function handleClick() {
+    if (isLine) {
+      window.open(src, "_blank");
+    } else {
+      setOpen(true);
+    }
+  }
 
   return (
     <>
       <div
-        onClick={() => setOpen(true)}
+        onClick={handleClick}
         className={className ?? "cursor-pointer w-full max-w-4xl mx-auto"}
       >
         {children}
