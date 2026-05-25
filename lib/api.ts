@@ -51,14 +51,6 @@ const defaultReviews = [
   },
 ];
 
-const defaultAnnouncements = [
-  {
-    title: "Grand Opening!",
-    description:
-      "We are excited to announce the grand opening of Muang Thai Restaurant in Einsiedeln! Join us for an authentic Thai dining experience.",
-  },
-];
-
 const defaultAtmosphere = [
   { title: "atmosphere1", url: "/showcase1.jpg" },
   { title: "atmosphere2", url: "/showcase2.jpg" },
@@ -177,14 +169,21 @@ export async function getAnnouncements(locale?: string) {
       content_type: "announcement",
       locale: toContentfulLocale(locale),
     });
-    const result = res.items.map((item) => ({
-      title: item.fields.title as string,
-      description: item.fields.description as Document,
-    }));
+    const now = new Date();
+    const result = res.items
+      .filter((item) => {
+        const end = item.fields.endDate as string | undefined;
+        return !end || new Date(end) >= now;
+      })
+      .map((item) => ({
+        title: item.fields.title as string,
+        description: item.fields.description as Document,
+        endDate: (item.fields.endDate as string | undefined) ?? null,
+      }));
     return result;
   } catch (error) {
     console.error("Failed to fetch announcements:", error);
-    return defaultAnnouncements;
+    return [];
   }
 }
 
@@ -270,7 +269,6 @@ export async function getStory(locale?: string) {
       locale: toContentfulLocale(locale),
     });
     if (res.items.length === 0) return null;
-    console.log("Fetched story:", res.items[0].fields);
     return res.items[0].fields;
   } catch (error) {
     console.error("Failed to fetch story:", error);
@@ -286,7 +284,6 @@ export async function getChefStory(locale?: string) {
       locale: toContentfulLocale(locale),
     });
     if (res.items.length === 0) return null;
-    console.log("Fetched chef story:", res.items[0].fields);
     return res.items[0].fields;
   } catch (error) {
     console.error("Failed to fetch chef story:", error);

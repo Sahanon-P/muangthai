@@ -1,4 +1,9 @@
 import type { Metadata } from "next";
+import { getMenu } from "@/lib/api";
+import { getTranslations } from "next-intl/server";
+import PdfViewer from "@/components/pdf-viewer-wrapper";
+import { PageHeader } from "@/components/PageHeader";
+import { AnimatedSection } from "@/components/sections/AnimatedSection";
 
 export const metadata: Metadata = {
   title: "Menu",
@@ -11,11 +16,6 @@ export const metadata: Metadata = {
   },
 };
 
-import { getMenu } from "@/lib/api";
-import { getTranslations } from "next-intl/server";
-import { Separator } from "@/components/ui/separator";
-import PdfViewer from "@/components/pdf-viewer-wrapper";
-
 export const revalidate = 60;
 
 export default async function MenuPage({
@@ -24,45 +24,60 @@ export default async function MenuPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const [menuItems, t] = await Promise.all([
-    getMenu(locale),
-    getTranslations("menu"),
-  ]);
+  const [menuItems, t] = await Promise.all([getMenu(locale), getTranslations("menu")]);
 
   return (
-    <div>
-      <main className="flex flex-col space-y-10 px-4 md:px-20">
-        {/* Header */}
-        <section className="py-10  text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-[#DAE129] drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">
-            {t("title")}
-          </h1>
-        </section>
+    <div className="bg-[#FAFAF8]">
+      <PageHeader eyebrow="Muang Thai" title={t("title")} />
 
-        <Separator className="bg-gradient-to-r from-red-400 to-yellow-300 h-1 rounded-full" />
+      <section className="py-8 pb-28 px-6 md:px-16">
+        <div className="max-w-4xl mx-auto">
+          {/* Gold divider */}
+          <div className="flex items-center gap-4 mb-16">
+            <div className="h-px flex-1 bg-[#E8E0D5]" />
+            <div className="w-1.5 h-1.5 rounded-full bg-[#C9A96E]" />
+            <div className="h-px flex-1 bg-[#E8E0D5]" />
+          </div>
 
-        {/* Menu Items */}
-        {menuItems.length > 0 ? (
-          menuItems.map((item, index) => (
-            <section
-              key={index}
-              className="flex flex-col items-center justify-center gap-6"
-            >
-              <h2 className="text-xl md:text-2xl font-bold text-[#DAE129]">
-                {item.title}
-              </h2>
+          {menuItems.length > 0 ? (
+            <div className="space-y-20">
+              {menuItems.map((item, index) => (
+                <AnimatedSection key={index} delay={index * 0.1}>
+                  <div className="space-y-6">
+                    {/* Menu item header */}
+                    <div className="flex items-center gap-4">
+                      <div className="h-px w-8 bg-[#C9A96E]" />
+                      <h2 className="font-display text-2xl md:text-3xl text-[#1C1C1C] font-light">
+                        {item.title}
+                      </h2>
+                    </div>
 
-              {item.fileUrl && (
-                <PdfViewer src={item.fileUrl} title={item.title} />
-              )}
+                    {/* PDF viewer */}
+                    {item.fileUrl && (
+                      <div className="border border-[#E8E0D5] overflow-hidden bg-white">
+                        <PdfViewer src={item.fileUrl} title={item.title} />
+                      </div>
+                    )}
+                  </div>
 
-              <Separator className="bg-gray-600 h-[1px] w-full max-w-4xl" />
-            </section>
-          ))
-        ) : (
-          <p className="text-center text-gray-400">{t("noMenu")}</p>
-        )}
-      </main>
+                  {/* Separator (not after last item) */}
+                  {index < menuItems.length - 1 && (
+                    <div className="flex items-center gap-4 mt-20">
+                      <div className="h-px flex-1 bg-[#E8E0D5]" />
+                      <div className="w-1 h-1 rounded-full bg-[#C9A96E]/60" />
+                      <div className="h-px flex-1 bg-[#E8E0D5]" />
+                    </div>
+                  )}
+                </AnimatedSection>
+              ))}
+            </div>
+          ) : (
+            <AnimatedSection className="text-center py-20">
+              <p className="font-display text-2xl text-[#9C9490] font-light">{t("noMenu")}</p>
+            </AnimatedSection>
+          )}
+        </div>
+      </section>
     </div>
   );
 }

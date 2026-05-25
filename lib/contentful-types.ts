@@ -25,6 +25,8 @@ export interface AnnouncementSkeleton {
   fields: {
     title: EntryFieldTypes.Symbol;
     description: EntryFieldTypes.RichText;
+    startDate: EntryFieldTypes.Date;
+    endDate: EntryFieldTypes.Date;
   };
 }
 

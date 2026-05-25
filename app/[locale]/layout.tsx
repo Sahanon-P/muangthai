@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "../globals.css";
 import localFont from "next/font/local";
+import { Cormorant_Garamond, Jost } from "next/font/google";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { getContactInfo, defaultQuickLinks } from "@/lib/api";
@@ -11,7 +12,21 @@ import { routing } from "@/i18n/routing";
 import Script from "next/script";
 import GAClient from "@/components/ga-client";
 
-const myFont = localFont({
+const cormorantGaramond = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-display",
+  display: "swap",
+});
+
+const jost = Jost({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  variable: "--font-body",
+  display: "swap",
+});
+
+const thaiFont = localFont({
   src: [
     {
       path: "../../font/SaoChingcha-Regular.otf",
@@ -21,14 +36,15 @@ const myFont = localFont({
     {
       path: "../../font/SaoChingcha-Bold.otf",
       style: "bold",
-      weight: "00",
+      weight: "700",
     },
     {
       path: "../../font/SaoChingcha-Light.otf",
-      style: "light",
+      style: "normal",
       weight: "300",
     },
   ],
+  variable: "--font-thai",
 });
 
 const SITE_URL = "https://muangthairestaurant.com";
@@ -83,7 +99,6 @@ export default async function RootLayout({
 }>) {
   const { locale } = await params;
 
-  // Validate locale
   if (!routing.locales.includes(locale as "en" | "de")) {
     notFound();
   }
@@ -138,7 +153,7 @@ export default async function RootLayout({
             <Script id="gtag-init" strategy="afterInteractive">
               {`
                 window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);} 
+                function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
                 gtag('config', '${GA_ID}', { page_path: window.location.pathname });
               `}
@@ -148,14 +163,13 @@ export default async function RootLayout({
       </head>
       <body
         suppressHydrationWarning
-        className={`${myFont.className} bg-[#242424] flex flex-col justify-center`}
+        className={`${cormorantGaramond.variable} ${jost.variable} ${thaiFont.variable} bg-[#FAFAF8] font-body`}
       >
         <NextIntlClientProvider messages={messages}>
-          {/* Client-side tracker to record pageviews on route change */}
           <GAClient />
-          <div className="bg-[url('/cover.svg')] bg-[length:100vw_auto] bg-top bg-no-repeat min-h-screen w-full space-y-7">
+          <div className="flex flex-col min-h-screen">
             <Navbar />
-            <div> {children}</div>
+            <div className="flex-1">{children}</div>
             <Footer contactInfo={contactInfo} quickLinks={defaultQuickLinks} />
           </div>
         </NextIntlClientProvider>

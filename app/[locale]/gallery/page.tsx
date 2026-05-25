@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { getGallery } from "@/lib/api";
+import { getTranslations } from "next-intl/server";
+import ImageViewer from "@/components/image-viewer";
+import { PageHeader } from "@/components/PageHeader";
+import { AnimatedSection } from "@/components/sections/AnimatedSection";
 
 export const metadata: Metadata = {
   title: "Chef Gallery",
@@ -7,13 +12,9 @@ export const metadata: Metadata = {
     "Browse the Muang Thai Restaurant chef gallery - a showcase of our culinary artistry and the passion behind every dish.",
   openGraph: {
     title: "Chef Gallery | Muang Thai Restaurant",
-    description:
-      "A showcase of our culinary artistry and the passion behind every dish.",
+    description: "A showcase of our culinary artistry and the passion behind every dish.",
   },
 };
-import { getGallery } from "@/lib/api";
-import { getTranslations } from "next-intl/server";
-import ImageViewer from "@/components/image-viewer";
 
 export const revalidate = 60;
 
@@ -23,82 +24,91 @@ export default async function GalleryPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const [galleries, t] = await Promise.all([
-    getGallery(locale),
-    getTranslations("gallery"),
-  ]);
+  const [galleries, t] = await Promise.all([getGallery(locale), getTranslations("gallery")]);
+
+  const allImages = galleries.flatMap((cat) =>
+    cat.imageUrls.map((url) => ({ url, category: cat.title })),
+  );
 
   return (
-    <div>
-      <main className="flex flex-col space-y-10 px-4 md:px-20">
-        {/* Header */}
-        <section className="py-10 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-[#DAE129] drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">
-            {t("title")}
-          </h1>
-        </section>
+    <div className="bg-[#FAFAF8]">
+      <PageHeader eyebrow="Behind the Scenes" title={t("title")} />
 
-        {/* Mobile: Masonry layout (all images combined) */}
-        <div className="md:hidden columns-3 gap-3 space-y-3">
-          {galleries.flatMap((category) =>
-            category.imageUrls.map((url, imgIndex) => (
+      {galleries.length > 0 ? (
+        <>
+          {/* Mobile: full masonry grid */}
+          <div className="md:hidden px-4 pb-20 pt-6 columns-2 gap-3 space-y-3">
+            {allImages.map((img, i) => (
               <ImageViewer
-                key={`${category.title}-${imgIndex}`}
-                src={url}
-                alt={`${category.title} ${imgIndex + 1}`}
-                className="cursor-pointer break-inside-avoid"
+                key={i}
+                src={img.url}
+                alt={`${img.category} ${i + 1}`}
+                className="cursor-pointer break-inside-avoid block"
               >
-                <div className="rounded-xl overflow-hidden">
+                <div className="overflow-hidden group">
                   <Image
-                    src={url}
-                    alt={`${category.title} ${imgIndex + 1}`}
+                    src={img.url}
+                    alt={`${img.category} ${i + 1}`}
                     width={400}
                     height={300}
-                    className="w-full h-auto object-cover"
+                    className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                 </div>
               </ImageViewer>
-            )),
-          )}
-        </div>
+            ))}
+          </div>
 
-        {/* Desktop: Categorized card layout */}
-        <div className="hidden md:flex flex-col space-y-10">
-          {galleries.length > 0 ? (
-            galleries.map((category, index) => (
-              <section
-                key={index}
-                className="bg-[#3a3a3a] rounded-lg p-6 max-w-5xl mx-auto w-full"
-              >
-                <h2 className="text-xl md:text-2xl font-bold text-[#DAE129] mb-4">
-                  {category.title}
-                </h2>
-                <div className="grid grid-cols-4 gap-3">
-                  {category.imageUrls.map((url, imgIndex) => (
-                    <ImageViewer
-                      key={imgIndex}
-                      src={url}
-                      alt={`${category.title} ${imgIndex + 1}`}
-                      className="cursor-pointer"
-                    >
-                      <div className="relative w-full h-[140px] rounded overflow-hidden">
-                        <Image
-                          src={url}
-                          alt={`${category.title} ${imgIndex + 1}`}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                    </ImageViewer>
-                  ))}
-                </div>
-              </section>
-            ))
-          ) : (
-            <p className="text-center text-gray-400">{t("noGallery")}</p>
-          )}
-        </div>
-      </main>
+          {/* Desktop: categorized sections */}
+          <div className="hidden md:block px-6 md:px-16 pb-28 pt-8">
+            <div className="max-w-6xl mx-auto space-y-20">
+              {galleries.map((category, catIndex) => (
+                <AnimatedSection key={catIndex} delay={catIndex * 0.08}>
+                  {/* Category header */}
+                  <div className="flex items-center gap-5 mb-8">
+                    <div className="h-px w-10 bg-[#C9A96E]" />
+                    <h2 className="font-display text-2xl md:text-3xl text-[#1C1C1C] font-light">
+                      {category.title}
+                    </h2>
+                    <div className="h-px flex-1 bg-[#E8E0D5]" />
+                  </div>
+
+                  {/* Image grid */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    {category.imageUrls.map((url, imgIndex) => (
+                      <ImageViewer
+                        key={imgIndex}
+                        src={url}
+                        alt={`${category.title} ${imgIndex + 1}`}
+                        className="cursor-pointer"
+                      >
+                        <div
+                          className={`relative overflow-hidden group bg-[#F0EBE4] ${
+                            imgIndex === 0 ? "col-span-2 row-span-2 aspect-square" : "aspect-square"
+                          }`}
+                        >
+                          <Image
+                            src={url}
+                            alt={`${category.title} ${imgIndex + 1}`}
+                            fill
+                            className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                            sizes="(max-width: 768px) 50vw, 25vw"
+                          />
+                          {/* Gold overlay on hover */}
+                          <div className="absolute inset-0 bg-[#C9A96E]/0 group-hover:bg-[#C9A96E]/10 transition-colors duration-500" />
+                        </div>
+                      </ImageViewer>
+                    ))}
+                  </div>
+                </AnimatedSection>
+              ))}
+            </div>
+          </div>
+        </>
+      ) : (
+        <AnimatedSection className="text-center py-28 px-6">
+          <p className="font-display text-2xl text-[#9C9490] font-light">{t("noGallery")}</p>
+        </AnimatedSection>
+      )}
     </div>
   );
 }

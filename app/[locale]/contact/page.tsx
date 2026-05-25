@@ -1,4 +1,9 @@
 import type { Metadata } from "next";
+import { getContactInfo } from "@/lib/api";
+import { getTranslations } from "next-intl/server";
+import { Mail, MapPin, Phone, ExternalLink } from "lucide-react";
+import { PageHeader } from "@/components/PageHeader";
+import { AnimatedSection } from "@/components/sections/AnimatedSection";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -11,24 +16,18 @@ export const metadata: Metadata = {
   },
 };
 
-import { getContactInfo } from "@/lib/api";
-import { getTranslations } from "next-intl/server";
-import { Mail, MapPin, Phone, ExternalLink } from "lucide-react";
-
 export const revalidate = 60;
+
+const GOOGLE_MAPS_EMBED =
+  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6057.850642295834!2d8.741264576514135!3d47.13102692069695!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479ab35b1d5e679b%3A0xdc6b2416c66147c7!2sMuang%20Thai!5e1!3m2!1sen!2snz!4v1779697468000!5m2!1sen!2snz";
 
 async function getPlaceMapData() {
   const placeId = process.env.PLACE_ID;
   const apiKey = process.env.GOOGLE_PLACES_API_KEY;
-
   if (!placeId || !apiKey) return null;
-
   try {
     const res = await fetch(`https://places.googleapis.com/v1/places/${placeId}`, {
-      headers: {
-        "X-Goog-Api-Key": apiKey,
-        "X-Goog-FieldMask": "location,googleMapsLinks",
-      },
+      headers: { "X-Goog-Api-Key": apiKey, "X-Goog-FieldMask": "location,googleMapsLinks" },
       next: { revalidate: 86400 },
     });
     const data = await res.json();
@@ -54,95 +53,101 @@ export default async function ContactPage({
     getTranslations("contact"),
   ]);
 
-  const osmEmbedUrl = mapData
-    ? `https://www.openstreetmap.org/export/embed.html?bbox=${mapData.lng - 0.01},${mapData.lat - 0.007},${mapData.lng + 0.01},${mapData.lat + 0.007}&layer=mapnik&marker=${mapData.lat},${mapData.lng}`
-    : null;
-
   return (
-    <div>
-      <main className="flex flex-col space-y-10 px-4 md:px-20">
-        {/* Header */}
-        <section className="py-10 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-[#DAE129] drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]">
-            {t("title")}
-          </h1>
-        </section>
+    <div className="bg-[#FAFAF8]">
+      <PageHeader eyebrow="Reach Us" title={t("title")} />
 
-        {/* Contact + Map */}
-        <section className="flex flex-col md:flex-row gap-10 pb-20">
-          {/* Contact Info */}
-          <div className="flex-1 flex flex-col gap-8 md:bg-[#1a1a1a] md:border md:border-[#DAE129]/30 md:p-8">
-            <h2 className="text-2xl font-bold text-[#DAE129]">
+      <section className="py-16 px-6 md:px-16 pb-28">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          {/* Contact info cards */}
+          <AnimatedSection direction="left" className="space-y-6">
+            <p className="font-body text-[10px] tracking-[0.4em] uppercase text-[#C9A96E] mb-8">
               {t("getInTouch")}
-            </h2>
+            </p>
 
-            <div className="flex items-start gap-4 text-white">
-              <Phone className="text-[#DAE129] mt-1 shrink-0" size={20} />
+            {/* Phone */}
+            <div className="bg-white border border-[#E8E0D5] p-6 flex items-start gap-5 hover:border-[#C9A96E] transition-colors duration-300 group">
+              <div className="w-10 h-10 flex items-center justify-center border border-[#C9A96E]/40 group-hover:border-[#C9A96E] transition-colors shrink-0 mt-0.5">
+                <Phone size={16} className="text-[#C9A96E]" />
+              </div>
               <div>
-                <p className="text-sm text-gray-400 mb-1">{t("phone")}</p>
+                <p className="font-body text-[10px] tracking-[0.3em] uppercase text-[#9C9490] mb-2">
+                  {t("phone")}
+                </p>
                 <a
-                  href={`tel:${contactInfo.phone.replace(/\s/g, "")}`}
-                  className="text-lg hover:text-[#DAE129] transition-colors"
+                  href={`tel:${contactInfo.phone.replace(/[\s/]/g, "")}`}
+                  className="font-display text-xl text-[#1C1C1C] hover:text-[#C9A96E] transition-colors"
                 >
                   {contactInfo.phone}
                 </a>
               </div>
             </div>
 
-            <div className="flex items-start gap-4 text-white">
-              <Mail className="text-[#DAE129] mt-1 shrink-0" size={20} />
+            {/* Email */}
+            <div className="bg-white border border-[#E8E0D5] p-6 flex items-start gap-5 hover:border-[#C9A96E] transition-colors duration-300 group">
+              <div className="w-10 h-10 flex items-center justify-center border border-[#C9A96E]/40 group-hover:border-[#C9A96E] transition-colors shrink-0 mt-0.5">
+                <Mail size={16} className="text-[#C9A96E]" />
+              </div>
               <div>
-                <p className="text-sm text-gray-400 mb-1">{t("email")}</p>
+                <p className="font-body text-[10px] tracking-[0.3em] uppercase text-[#9C9490] mb-2">
+                  {t("email")}
+                </p>
                 <a
                   href={`mailto:${contactInfo.email}`}
-                  className="text-lg hover:text-[#DAE129] transition-colors"
+                  className="font-display text-xl text-[#1C1C1C] hover:text-[#C9A96E] transition-colors"
                 >
                   {contactInfo.email}
                 </a>
               </div>
             </div>
 
-            <div className="flex items-start gap-4 text-white">
-              <MapPin className="text-[#DAE129] mt-1 shrink-0" size={20} />
+            {/* Address */}
+            <div className="bg-white border border-[#E8E0D5] p-6 flex items-start gap-5 hover:border-[#C9A96E] transition-colors duration-300 group">
+              <div className="w-10 h-10 flex items-center justify-center border border-[#C9A96E]/40 group-hover:border-[#C9A96E] transition-colors shrink-0 mt-0.5">
+                <MapPin size={16} className="text-[#C9A96E]" />
+              </div>
               <div>
-                <p className="text-sm text-gray-400 mb-1">{t("address")}</p>
-                <p className="text-lg">{contactInfo.address}</p>
+                <p className="font-body text-[10px] tracking-[0.3em] uppercase text-[#9C9490] mb-2">
+                  {t("address")}
+                </p>
+                <p className="font-display text-xl text-[#1C1C1C]">{contactInfo.address}</p>
               </div>
             </div>
 
+            {/* Maps link */}
             {mapData?.mapsUrl && (
               <a
                 href={mapData.mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 border border-[#DAE129] text-[#DAE129] px-5 py-2.5 text-sm font-semibold hover:bg-[#DAE129]/10 transition-colors self-start"
+                className="inline-flex items-center gap-3 font-body text-xs tracking-[0.25em] uppercase text-[#C9A96E] border border-[#C9A96E] px-6 py-3 hover:bg-[#C9A96E] hover:text-white transition-all duration-300 mt-4"
               >
-                <ExternalLink size={16} />
+                <ExternalLink size={14} />
                 {t("viewOnMaps")}
               </a>
             )}
-          </div>
+          </AnimatedSection>
 
           {/* Map */}
-          <div className="flex-1 min-h-[350px] md:min-h-[450px] border-4 border-[#DAE129] overflow-hidden">
-            {osmEmbedUrl ? (
-              <iframe
-                src={osmEmbedUrl}
-                width="100%"
-                height="100%"
-                style={{ border: 0, minHeight: "350px" }}
-                allowFullScreen
-                loading="lazy"
-                title={t("findUs")}
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center text-gray-500 text-sm" style={{ minHeight: "350px" }}>
-                {t("mapUnavailable")}
+          <AnimatedSection direction="right">
+            <div className="relative">
+              <div className="absolute top-4 left-4 w-12 h-12 border-t-2 border-l-2 border-[#C9A96E] z-10 pointer-events-none" />
+              <div className="absolute bottom-4 right-4 w-12 h-12 border-b-2 border-r-2 border-[#C9A96E] z-10 pointer-events-none" />
+              <div className="overflow-hidden aspect-square md:aspect-[4/3] border border-[#E8E0D5]">
+                <iframe
+                  src={GOOGLE_MAPS_EMBED}
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0, minHeight: "400px", display: "block" }}
+                  allowFullScreen
+                  loading="lazy"
+                  title={t("findUs")}
+                />
               </div>
-            )}
-          </div>
-        </section>
-      </main>
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
     </div>
   );
 }
