@@ -21,35 +21,14 @@ export const revalidate = 60;
 const GOOGLE_MAPS_EMBED =
   "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6057.850642295834!2d8.741264576514135!3d47.13102692069695!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479ab35b1d5e679b%3A0xdc6b2416c66147c7!2sMuang%20Thai!5e1!3m2!1sen!2snz!4v1779697468000!5m2!1sen!2snz";
 
-async function getPlaceMapData() {
-  const placeId = process.env.PLACE_ID;
-  const apiKey = process.env.GOOGLE_PLACES_API_KEY;
-  if (!placeId || !apiKey) return null;
-  try {
-    const res = await fetch(`https://places.googleapis.com/v1/places/${placeId}`, {
-      headers: { "X-Goog-Api-Key": apiKey, "X-Goog-FieldMask": "location,googleMapsLinks" },
-      next: { revalidate: 86400 },
-    });
-    const data = await res.json();
-    return {
-      lat: data.location?.latitude as number,
-      lng: data.location?.longitude as number,
-      mapsUrl: data.googleMapsLinks?.placeUri as string,
-    };
-  } catch {
-    return null;
-  }
-}
-
 export default async function ContactPage({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const [contactInfo, mapData, t] = await Promise.all([
+  const [contactInfo, t] = await Promise.all([
     getContactInfo(locale),
-    getPlaceMapData(),
     getTranslations("contact"),
   ]);
 
@@ -110,22 +89,22 @@ export default async function ContactPage({
                 <p className="font-body text-[10px] tracking-[0.3em] uppercase text-[#9C9490] mb-2">
                   {t("address")}
                 </p>
-                <p className="font-display text-xl text-[#1C1C1C]">{contactInfo.address}</p>
+                <p className="font-display text-xl text-[#1C1C1C]">
+                  {contactInfo.address}
+                </p>
               </div>
             </div>
 
             {/* Maps link */}
-            {mapData?.mapsUrl && (
-              <a
-                href={mapData.mapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 font-body text-xs tracking-[0.25em] uppercase text-[#C9A96E] border border-[#C9A96E] px-6 py-3 hover:bg-[#C9A96E] hover:text-white transition-all duration-300 mt-4"
-              >
-                <ExternalLink size={14} />
-                {t("viewOnMaps")}
-              </a>
-            )}
+            <a
+              href={"https://maps.app.goo.gl/geJGabxGiYzC8YTA9"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 font-body text-xs tracking-[0.25em] uppercase text-[#C9A96E] border border-[#C9A96E] px-6 py-3 hover:bg-[#C9A96E] hover:text-white transition-all duration-300 mt-4"
+            >
+              <ExternalLink size={14} />
+              {t("viewOnMaps")}
+            </a>
           </AnimatedSection>
 
           {/* Map */}
