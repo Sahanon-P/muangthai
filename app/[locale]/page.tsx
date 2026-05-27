@@ -73,24 +73,31 @@ export default async function Home({
         heroImageUrl={heroImageUrl}
         welcomeText={t("welcomeTo")}
         reserveText={t("reserve")}
-        tagline="The most satisfying Thai food experience anyone can have in a chic environment"
+        tagline={t("tagline")}
       />
 
-      <PrideDishesSection dishes={showcases} viewMoreText="View All Dishes" />
+      <PrideDishesSection
+        dishes={showcases}
+        viewMoreText={t("viewAllDishes")}
+        ourSelection={t("ourSelection")}
+        sectionTitle={t("prideDishes")}
+        dishLabels={[t("signatureStarter"), t("prideOfTheHouse"), t("chefsSpecial")]}
+        fallbackLabel={t("signatureDish")}
+      />
 
       <AboutSection
         imageUrl={aboutImageUrl}
         aboutText={aboutText}
-        readMoreText="Read Our Story"
+        readMoreText={t("readOurStory")}
       />
 
-      <ChefSection chefData={chefData} sectionLabel="The Team" />
+      <ChefSection chefData={chefData} sectionLabel={t("theTeam")} />
 
       <BuffetSection />
 
       <LunchClubSection
-        title="Join the Lunch Club"
-        description="Reserve your table and experience the finest authentic Thai cuisine. Lunch and dinner, every day in Einsiedeln."
+        title={t("lunchClubTitle")}
+        description={t("lunchClubDescription")}
         buttonText={t("reserve")}
       />
 

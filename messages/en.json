@@ -25,7 +25,28 @@
         "testimonials": "TESTIMONIALS",
         "noReviews": "No reviews yet. Be the first to share your experience!",
         "whatOurCustomersFeel": "WHAT OUR CUSTOMERS FEEL",
-        "atmosphere": "ATMOSPHERE"
+        "atmosphere": "ATMOSPHERE",
+        "tagline": "The most satisfying Thai food experience anyone can have in a chic environment",
+        "viewAllDishes": "View All Dishes",
+        "ourSelection": "Our Selection",
+        "prideDishes": "Pride Dishes",
+        "signatureStarter": "Signature Starter",
+        "prideOfTheHouse": "Pride of the House",
+        "chefsSpecial": "Chef's Special",
+        "signatureDish": "Signature Dish",
+        "readOurStory": "Read Our Story",
+        "theTeam": "The Team",
+        "lunchClubTitle": "Join the Lunch Club",
+        "lunchClubDescription": "Reserve your table and experience the finest authentic Thai cuisine. Lunch and dinner, every day in Einsiedeln.",
+        "whatOurGuestsSay": "What our guests say",
+        "verifiedGuest": "Verified Guest",
+        "beTheFirst": "Be the first to share your experience!"
+    },
+    "buffet": {
+        "visitUs": "Visit Us",
+        "openingHours": "Opening Hours",
+        "dailySpecial": "Daily Special",
+        "closed": "Closed"
     },
     "reservation": {
         "title": "RESERVATION",
@@ -53,6 +74,8 @@
         "tagline": "Original Thai Specialties",
         "contactUs": "CONTACT US",
         "quickLink": "QUICK LINK",
+        "openingHours": "Opening Hours",
+        "closed": "Closed",
         "defaultTagline": "Authentic Thai cuisine made with love and tradition.\nFresh ingredients, warm smiles, unforgettable flavors.",
         "links": {
             "home": "Home",
@@ -95,7 +118,10 @@
     "story": {
         "title": "OUR STORY",
         "fallbackTitle": "From Our Home to Yours",
-        "aboutOurChef": "About Our Chef"
+        "aboutOurChef": "About Our Chef",
+        "familyEyebrow": "The Heart Behind It All",
+        "familyHeading": "Our Family",
+        "familyCaption": "This restaurant would not exist without the love and support of our parents. Their sacrifices, encouragement, and belief in us made this dream a reality. We are forever grateful."
     },
     "menu": {
         "title": "MENU",

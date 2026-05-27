@@ -1,14 +1,16 @@
+import { getTranslations } from "next-intl/server";
 import { AnimatedSection } from "./AnimatedSection";
 import { UtensilsCrossed, Clock } from "lucide-react";
 
-const OPENING_HOURS = [
-  { day: "Mo.", hours: "Geschlossen", closed: true },
-  { day: "Di. – Fr.", hours: "11:00 – 14:00 & 17:30 – 22:30 Uhr", closed: false },
-  { day: "Sa.", hours: "17:30 – 22:30 Uhr", closed: false },
-  { day: "So.", hours: "11:30 – 21:30 Uhr", closed: false },
-];
+export async function BuffetSection() {
+  const t = await getTranslations("buffet");
 
-export function BuffetSection() {
+  const OPENING_HOURS = [
+    { day: "Mo.", hours: t("closed"), closed: true },
+    { day: "Di. – Fr.", hours: "11:00 – 14:00 & 17:30 – 22:30 Uhr", closed: false },
+    { day: "Sa.", hours: "17:30 – 22:30 Uhr", closed: false },
+    { day: "So.", hours: "11:30 – 21:30 Uhr", closed: false },
+  ];
   return (
     <section className="py-28 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 md:px-16 grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
@@ -18,12 +20,12 @@ export function BuffetSection() {
           <div className="flex items-center gap-4 mb-8">
             <div className="h-px w-10 bg-[#C9A96E]" />
             <span className="font-body text-[10px] tracking-[0.4em] uppercase text-[#C9A96E]">
-              Visit Us
+              {t("visitUs")}
             </span>
           </div>
           <h2 className="font-display text-4xl md:text-5xl text-[#1C1C1C] font-light mb-10 flex items-center gap-4">
             <Clock size={28} className="text-[#C9A96E] shrink-0" />
-            Opening Hours
+            {t("openingHours")}
           </h2>
 
           <div className="divide-y divide-[#F0E8E0]">
@@ -51,7 +53,7 @@ export function BuffetSection() {
           <div className="flex items-center gap-4 mb-8">
             <div className="h-px w-10 bg-[#C9A96E]" />
             <span className="font-body text-[10px] tracking-[0.4em] uppercase text-[#C9A96E]">
-              Daily Special
+              {t("dailySpecial")}
             </span>
           </div>
           <h2 className="font-display text-4xl md:text-5xl text-[#1C1C1C] font-light mb-10 flex items-center gap-4">

@@ -165,6 +165,44 @@ export default async function StoryPage({
           </div>
         </section>
       )}
+
+      {/* Family section */}
+      <section className="py-24 px-6 md:px-16 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <AnimatedSection className="text-center mb-14">
+            <div className="flex items-center justify-center gap-5 mb-5">
+              <div className="h-px w-10 bg-[#C9A96E]" />
+              <span className="font-body text-[10px] tracking-[0.4em] uppercase text-[#C9A96E]">
+                {t("familyEyebrow")}
+              </span>
+              <div className="h-px w-10 bg-[#C9A96E]" />
+            </div>
+            <h2 className="font-display text-4xl md:text-5xl text-[#1C1C1C] font-light">
+              {t("familyHeading")}
+            </h2>
+          </AnimatedSection>
+
+          <AnimatedSection delay={0.1}>
+            <div className="relative max-w-2xl mx-auto overflow-hidden">
+              <Image
+                src="https://images.ctfassets.net/wm25swmtblzn/J4h8H8xa9MBMrSWuNIKY1/ac0e87c3ab1bfac953621ced72122ea5/IMG_7881.JPG"
+                alt={t("familyHeading")}
+                width={800}
+                height={600}
+                className="w-full h-auto object-cover"
+              />
+              <div className="absolute top-5 left-5 w-12 h-12 border-t-2 border-l-2 border-[#C9A96E]" />
+              <div className="absolute bottom-5 right-5 w-12 h-12 border-b-2 border-r-2 border-[#C9A96E]" />
+            </div>
+          </AnimatedSection>
+
+          <AnimatedSection delay={0.2} className="mt-10 text-center max-w-xl mx-auto">
+            <p className="font-display text-lg md:text-xl text-[#5C5C5C] italic font-light leading-relaxed">
+              &ldquo;{t("familyCaption")}&rdquo;
+            </p>
+          </AnimatedSection>
+        </div>
+      </section>
     </div>
   );
 }

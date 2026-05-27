@@ -10,13 +10,19 @@ interface Dish {
 interface PrideDishesSectionProps {
   dishes: Dish[];
   viewMoreText?: string;
+  ourSelection?: string;
+  sectionTitle?: string;
+  dishLabels?: string[];
+  fallbackLabel?: string;
 }
-
-const DISH_LABELS = ["Signature Starter", "Pride of the House", "Chef's Special"];
 
 export function PrideDishesSection({
   dishes,
   viewMoreText = "View All Dishes",
+  ourSelection = "Our Selection",
+  sectionTitle = "Pride Dishes",
+  dishLabels = ["Signature Starter", "Pride of the House", "Chef's Special"],
+  fallbackLabel = "Signature Dish",
 }: PrideDishesSectionProps) {
   const topDishes = dishes.slice(0, 3);
 
@@ -29,12 +35,12 @@ export function PrideDishesSection({
         <div className="flex items-center justify-center gap-5 mb-5">
           <div className="h-px w-10 bg-[#C9A96E]" />
           <span className="font-body text-[10px] tracking-[0.4em] uppercase text-[#C9A96E]">
-            Our Selection
+            {ourSelection}
           </span>
           <div className="h-px w-10 bg-[#C9A96E]" />
         </div>
         <h2 className="font-display text-5xl md:text-6xl text-[#1C1C1C] font-light">
-          Pride Dishes
+          {sectionTitle}
         </h2>
       </AnimatedSection>
 
@@ -47,7 +53,7 @@ export function PrideDishesSection({
               <div className="overflow-hidden aspect-[4/5] mb-5 bg-[#F0EBE4]">
                 <Image
                   src={dish.url}
-                  alt={DISH_LABELS[i] ?? dish.title}
+                  alt={dishLabels[i] ?? dish.title}
                   width={480}
                   height={600}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
@@ -57,10 +63,10 @@ export function PrideDishesSection({
               {/* Label */}
               <div className="text-center px-2">
                 <p className="font-body text-[10px] tracking-[0.3em] uppercase text-[#C9A96E] mb-2">
-                  {DISH_LABELS[i] ?? "Signature Dish"}
+                  {dishLabels[i] ?? fallbackLabel}
                 </p>
                 <h3 className="font-display text-xl text-[#1C1C1C] font-medium relative inline-block">
-                  {DISH_LABELS[i] ?? dish.title}
+                  {dishLabels[i] ?? dish.title}
                   <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-[#C9A96E] group-hover:w-full transition-all duration-400 ease-out" />
                 </h3>
               </div>

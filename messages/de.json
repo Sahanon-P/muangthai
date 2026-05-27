@@ -25,7 +25,28 @@
         "testimonials": "KUNDENSTIMMEN",
         "noReviews": "Noch keine Bewertungen. Teilen Sie als Erster Ihre Erfahrung!",
         "whatOurCustomersFeel": "WIE SICH UNSERE KUNDEN FÜHLEN",
-        "atmosphere": "ATMOSPHÄRE"
+        "atmosphere": "ATMOSPHÄRE",
+        "tagline": "Das befriedigendste Thai-Food-Erlebnis in einem eleganten Ambiente",
+        "viewAllDishes": "Alle Gerichte ansehen",
+        "ourSelection": "Unsere Auswahl",
+        "prideDishes": "Stolz-Gerichte",
+        "signatureStarter": "Signatur-Vorspeise",
+        "prideOfTheHouse": "Hausempfehlung",
+        "chefsSpecial": "Chefempfehlung",
+        "signatureDish": "Signatur-Gericht",
+        "readOurStory": "Unsere Geschichte lesen",
+        "theTeam": "Das Team",
+        "lunchClubTitle": "Tisch reservieren",
+        "lunchClubDescription": "Reservieren Sie Ihren Tisch und erleben Sie die feinste authentische Thai-Küche. Mittag- und Abendessen, täglich in Einsiedeln.",
+        "whatOurGuestsSay": "Was unsere Gäste sagen",
+        "verifiedGuest": "Verifizierter Gast",
+        "beTheFirst": "Teilen Sie als Erster Ihre Erfahrung!"
+    },
+    "buffet": {
+        "visitUs": "Besuchen Sie uns",
+        "openingHours": "Öffnungszeiten",
+        "dailySpecial": "Tagesangebot",
+        "closed": "Geschlossen"
     },
     "reservation": {
         "title": "RESERVATION",
@@ -53,6 +74,8 @@
         "tagline": "Original thailändische Spezialitäten",
         "contactUs": "KONTAKTIEREN SIE UNS",
         "quickLink": "SCHNELLZUGRIFF",
+        "openingHours": "Öffnungszeiten",
+        "closed": "Geschlossen",
         "defaultTagline": "Authentische Thai-Küche mit Liebe und Tradition zubereitet.\nFrische Zutaten, herzliches Lächeln, unvergessliche Aromen.",
         "links": {
             "home": "Startseite",
@@ -95,7 +118,10 @@
     "story": {
         "title": "UNSERE GESCHICHTE",
         "fallbackTitle": "Von unserem Zuhause zu Ihrem",
-        "aboutOurChef": "Über unseren Küchenchef"
+        "aboutOurChef": "Über unseren Küchenchef",
+        "familyEyebrow": "Das Herz dahinter",
+        "familyHeading": "Unsere Familie",
+        "familyCaption": "Dieses Restaurant würde ohne die Liebe und Unterstützung unserer Eltern nicht existieren. Ihre Opfer, ihre Ermutigung und ihr Glaube an uns haben diesen Traum Wirklichkeit werden lassen. Wir sind ihnen für immer dankbar."
     },
     "menu": {
         "title": "MENÜ",

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { AnimatedSection } from "./AnimatedSection";
 
 interface Review {
@@ -32,6 +33,7 @@ export function TestimonialsSection({
   reviews,
   sectionLabel = "Testimonials",
 }: TestimonialsSectionProps) {
+  const t = useTranslations("home");
   const [current, setCurrent] = useState(0);
   const hasReviews = reviews.length > 0;
 
@@ -48,7 +50,7 @@ export function TestimonialsSection({
         <div className="flex items-center justify-center gap-5 mb-5">
           <div className="h-px w-10 bg-[#C9A96E]" />
           <span className="font-body text-[10px] tracking-[0.4em] uppercase text-[#C9A96E]">
-            What our guests say
+            {t("whatOurGuestsSay")}
           </span>
           <div className="h-px w-10 bg-[#C9A96E]" />
         </div>
@@ -144,7 +146,7 @@ export function TestimonialsSection({
         </div>
       ) : (
         <p className="text-center font-body text-[#9C9490] text-sm mt-8">
-          Be the first to share your experience!
+          {t("beTheFirst")}
         </p>
       )}
     </section>

@@ -121,13 +121,13 @@ export default async function Footer({ contactInfo, quickLinks }: FooterProps) {
         <div className="flex flex-col gap-6">
           <h3 className="font-body text-[10px] tracking-[0.4em] uppercase text-[#C9A96E] flex items-center gap-2">
             <Clock size={12} />
-            Opening Hours
+            {t("openingHours")}
           </h3>
           <div className="h-px w-10 bg-[#C9A96E]" />
 
           <div className="flex flex-col divide-y divide-white/5 font-body text-sm">
             {[
-              { day: "Mo.", hours: "Geschlossen", closed: true },
+              { day: "Mo.", hours: t("closed"), closed: true },
               { day: "Di. – Fr.", hours: "11:00 – 14:00\n17:30 – 22:30 Uhr", closed: false },
               { day: "Sa.", hours: "17:30 – 22:30 Uhr", closed: false },
               { day: "So.", hours: "11:30 – 21:30 Uhr", closed: false },
