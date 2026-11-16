@@ -80,7 +80,7 @@ export async function BuffetSection() {
               <div className="flex items-baseline justify-between">
                 <span className="font-body text-sm text-[#9C9490]">Erwachsene</span>
                 <span className="font-display text-3xl text-[#C9A96E] font-light">
-                  21,90 <span className="text-lg">CHF</span>
+                  23,40 <span className="text-lg">CHF</span>
                 </span>
               </div>
               <div className="flex items-baseline justify-between">
