@@ -95,7 +95,7 @@ export async function BuffetSection() {
 
             <p className="font-body text-xs text-[#5C5858] mt-8 leading-relaxed">
               Für nur {" "}
-              <span className="text-[#C9A96E]">21,90 CHF</span>
+              <span className="text-[#C9A96E]">23,40 CHF</span>
               {" "}genießen Sie unser Mittags-Buffet mit einer Auswahl an authentischen
               Thai-Gerichten.
             </p>
